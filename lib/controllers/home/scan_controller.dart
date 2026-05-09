@@ -1,14 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:labsense_ai/AI/gemini_services.dart';
+import 'package:labsense_ai/core/services/gemini_services.dart';
+import 'package:labsense_ai/core/services/firebase_service.dart';
 import 'package:labsense_ai/model/analysis_model.dart';
 import 'package:labsense_ai/view/screens/home/results.dart';
 
 class ScanController extends GetxController {
   final GeminiService _geminiService = GeminiService();
+  final FirebaseService _firebaseService = FirebaseService();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final ImagePicker picker = ImagePicker();
 
   var selectedImage = Rxn<File>();
@@ -62,6 +66,7 @@ class ScanController extends GetxController {
  "health_score": 0-100,
  "status": "healthy | stable | dangerous",
  "total_info": "ملخص قصير",
+ "test_name": "اسم مختصر من 2 إلى 3 كلمات",
 
  "biomarkers":[
    {
@@ -106,6 +111,7 @@ Return ONLY JSON:
  "health_score": 0-100,
  "status": "healthy | stable | dangerous",
  "total_info": "short summary",
+ "test_name": "Short Name from 2 to 3 words",
 
  "biomarkers":[
    {
@@ -146,14 +152,14 @@ Rules:
   /// SEND TO GEMINI
   Future<void> analyze() async {
     if (selectedImage.value == null) {
-      Get.snackbar("Error", "Please upload an image first");
+      Get.snackbar("60".tr, "101".tr);
       return;
     }
 
     try {
       Get.snackbar(
-        "Analyzing...",
-        "This may take 10-15 seconds",
+        "102".tr,
+        "103".tr,
         snackPosition: SnackPosition.BOTTOM,
         duration: const Duration(seconds: 3),
       );
@@ -177,11 +183,19 @@ Rules:
 
         analysis.value = AnalysisModel.fromJson(jsonData);
 
-        Get.to(() => ResultsScreen(), arguments: analysis.value);
+        await saveToHistory(analysis);
+
+        Get.to(
+          () => ResultsScreen(),
+          arguments: analysis.value,
+          transition: Transition.fade,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
       }
     } catch (e) {
       print("Gemini parsing error: $e");
-      Get.snackbar("Error", "Analysis failed");
+      Get.snackbar("60".tr, "104".tr);
     } finally {
       isLoading.value = false;
     }
@@ -198,5 +212,24 @@ Rules:
       default:
         return Colors.grey;
     }
+  }
+
+  Future<void> saveToHistory(Rxn<AnalysisModel> model) async {
+    await _firestore
+        .collection("history")
+        .doc(_firebaseService.getUserId())
+        .collection("reports")
+        .add({
+          "total_info": model.value?.totalInfo,
+          "test_name": model.value?.testName,
+          "good_results": model.value?.goodResults,
+          "abnormal_results": model.value?.abnormalResults,
+          "medicalAdvice": model.value?.medicalAdvice,
+          "health_score": model.value?.healthScore,
+          "status": model.value?.status,
+          "advices": model.value?.advices.map((e) => e.toJson()).toList(),
+          "biomarkers": model.value?.biomarkers.map((e) => e.toJson()).toList(),
+          "createdAt": FieldValue.serverTimestamp(),
+        });
   }
 }

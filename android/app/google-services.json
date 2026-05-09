@@ -12,7 +12,20 @@
           "package_name": "com.example.labsense_ai"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1097288100578-i8q69cdbe9t8n58dnoioj5hig0pic25l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.labsense_ai",
+            "certificate_hash": "9c7a3129dc8e98befa802ff5d797fec5a839bbf4"
+          }
+        },
+        {
+          "client_id": "1097288100578-b2njlg7gep9rq3voh2dfvuqbuf7imo4v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCNa1pJEp0-8XRIei9s9i57N2hHt_3P-pQ"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097288100578-b2njlg7gep9rq3voh2dfvuqbuf7imo4v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1097288100578-kasuktvcf5448a9qp2td424a2vknfvfe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.labsenseAi"
+              }
+            }
+          ]
         }
       }
     }

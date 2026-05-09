@@ -20,15 +20,36 @@ class BiomarkerModel {
   });
 
   factory BiomarkerModel.fromJson(Map<String, dynamic> json) {
+    double parseDouble(dynamic v) {
+      if (v == null) return 0.0;
+      if (v is int) return v.toDouble();
+      if (v is double) return v;
+      if (v is String) return double.tryParse(v) ?? 0.0;
+      return 0.0;
+    }
+
     return BiomarkerModel(
       name: json["name"] ?? "",
       category: json["category"] ?? "",
-      value: (json["value"] ?? 0).toDouble(),
+      value: parseDouble(json["value"]),
       unit: json["unit"] ?? "",
-      low: (json["low"] ?? 0).toDouble(),
-      optimal: (json["optimal"] ?? 0).toDouble(),
-      high: (json["high"] ?? 0).toDouble(),
+      low: parseDouble(json["low"]),
+      optimal: parseDouble(json["optimal"]),
+      high: parseDouble(json["high"]),
       status: json["status"] ?? "",
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "name": name,
+      "category": category,
+      "value": value,
+      "unit": unit,
+      "low": low,
+      "optimal": optimal,
+      "high": high,
+      "status": status,
+    };
   }
 }

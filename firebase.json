@@ -1,1 +1,37 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"labsense-ai","appId":"1:1097288100578:android:c8f4f6ab7b95b4cef3ccbb","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"labsense-ai","configurations":{"android":"1:1097288100578:android:c8f4f6ab7b95b4cef3ccbb","ios":"1:1097288100578:ios:869f37c7ff214afef3ccbb","web":"1:1097288100578:web:f1b80eb5006e51bff3ccbb"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "labsense-ai",
+          "appId": "1:1097288100578:android:c8f4f6ab7b95b4cef3ccbb",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "labsense-ai",
+          "configurations": {
+            "android": "1:1097288100578:android:c8f4f6ab7b95b4cef3ccbb",
+            "ios": "1:1097288100578:ios:869f37c7ff214afef3ccbb",
+            "web": "1:1097288100578:web:f1b80eb5006e51bff3ccbb"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "disallowLegacyRuntimeConfig": true,
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ]
+}

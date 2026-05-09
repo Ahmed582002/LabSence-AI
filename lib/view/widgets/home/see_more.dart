@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:labsense_ai/core/constants/color.dart';
 
 class SeeMore extends StatelessWidget {
@@ -20,7 +21,7 @@ class SeeMore extends StatelessWidget {
         GestureDetector(
           onTap: onTap,
           child: Text(
-            "See More",
+            "62".tr,
             style: Theme.of(context).textTheme.displayMedium!.copyWith(
               fontSize: 16,
               color: AppColors.primary,

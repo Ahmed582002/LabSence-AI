@@ -22,4 +22,14 @@ class AdviceModel {
       category: json["category"] ?? "",
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "title": title,
+      "description": description,
+      "priority": priority,
+      "action": action,
+      "category": category,
+    };
+  }
 }

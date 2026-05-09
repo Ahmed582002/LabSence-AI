@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:labsense_ai/controllers/onboarding_controller.dart';
+import 'package:labsense_ai/controllers/start/onboarding_controller.dart';
 import 'package:labsense_ai/core/constants/color.dart';
 import 'package:labsense_ai/core/constants/onboarding_const.dart';
 

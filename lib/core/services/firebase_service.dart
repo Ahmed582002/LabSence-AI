@@ -25,9 +25,10 @@ class FirebaseService {
   /// CREATE
   Future<void> create({
     required String collection,
+    String? doc,
     required Map<String, dynamic> data,
   }) async {
-    await _firestore.collection(collection).add(data);
+    await _firestore.collection(collection).doc(doc).set(data);
   }
 
   /// READ ALL

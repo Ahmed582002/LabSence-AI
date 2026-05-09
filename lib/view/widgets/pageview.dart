@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:labsense_ai/controllers/onboarding_controller.dart';
+import 'package:labsense_ai/controllers/start/onboarding_controller.dart';
 import 'package:labsense_ai/core/constants/onboarding_const.dart';
 
 class MyPageView extends GetView<OnboardingController> {
@@ -19,7 +19,7 @@ class MyPageView extends GetView<OnboardingController> {
         children: [
           Expanded(flex: 12, child: Center(child: myList[index].image!)),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Text(
               textAlign: TextAlign.center,
               myList[index].title!,

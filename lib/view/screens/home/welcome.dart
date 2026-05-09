@@ -1,10 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:labsense_ai/controllers/bottom_navigation_bar_controller.dart';
+import 'package:intl/intl.dart';
+import 'package:labsense_ai/controllers/home/bottom_navigation_bar_controller.dart';
 import 'package:labsense_ai/controllers/home/home_controller.dart';
+import 'package:labsense_ai/controllers/home/reports_controller.dart';
 import 'package:labsense_ai/core/constants/color.dart';
+import 'package:labsense_ai/model/analysis_model.dart';
+import 'package:labsense_ai/view/screens/home/results.dart';
 import 'package:labsense_ai/view/widgets/custom_button.dart';
-import 'package:labsense_ai/view/widgets/home/report_card.dart';
+import 'package:labsense_ai/view/widgets/home/report/report_card.dart';
 import 'package:labsense_ai/view/widgets/home/see_more.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -14,6 +19,7 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomeController homeController = Get.find();
     final BottomNavigationBarController navController = Get.find();
+    final ReportsController reportsController = Get.put(ReportsController());
     // final WelcomeController welcomeController = Get.put(WelcomeController());
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15),
@@ -25,14 +31,14 @@ class WelcomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Patient Dashboard",
+                "24".tr,
                 style: Theme.of(
                   context,
                 ).textTheme.displaySmall!.copyWith(fontSize: 12),
               ),
               SizedBox(height: Get.height * 0.01),
               Text(
-                "Welcome Back,",
+                "${"6".tr},",
                 style: Theme.of(
                   context,
                 ).textTheme.displayLarge!.copyWith(fontSize: 28),
@@ -40,7 +46,7 @@ class WelcomePage extends StatelessWidget {
               SizedBox(height: Get.height * 0.005),
               Obx(() {
                 if (homeController.user.value == null) {
-                  return const Text("Loading...");
+                  return Text("25".tr);
                 }
                 return Text(
                   homeController.user.value!.name,
@@ -63,14 +69,14 @@ class WelcomePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Instant Clinical \nAnalysis",
+                      "26".tr,
                       style: Theme.of(
                         context,
                       ).textTheme.displayMedium!.copyWith(fontSize: 26),
                     ),
                     SizedBox(height: Get.height * 0.03),
                     Text(
-                      "Upload your laboratory results \nor scan paper reports for \nimmediate AI-powered \ninterpretation and trend \ntracking.",
+                      "27".tr,
                       style: Theme.of(context).textTheme.displaySmall!.copyWith(
                         fontSize: 16,
                         height: Get.height * 0.002,
@@ -80,7 +86,7 @@ class WelcomePage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 30),
                       child: CustomButton(
-                        text: "Start New Scan",
+                        text: "28".tr,
                         onPressed: () {
                           navController.selectedIndex.value++;
                         },
@@ -91,24 +97,69 @@ class WelcomePage extends StatelessWidget {
               ),
               SizedBox(height: Get.height * 0.03),
               SeeMore(
-                text: "Recent Analyses",
+                text: "29".tr,
                 onTap: () {
                   navController.selectedIndex + 2;
                 },
               ),
               SizedBox(height: Get.height * 0.03),
-              ReportCard(
-                title: "Full Blood Count (FBC)",
-                centerName: "St. Mary's Diagnostic Center",
-                date: "Oct 12, 2023",
-                onTap: () {},
-              ),
-              ReportCard(
-                title: "Full Blood Count (FBC)",
-                centerName: "St. Mary's Diagnostic Center",
-                date: "Oct 12, 2023",
-                onTap: () {},
-              ),
+              Obx(() {
+                if (reportsController.isLoading.value) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                if (reportsController.reports.isEmpty) {
+                  return Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.description_outlined,
+                            size: 60,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            "30".tr,
+                            style: TextStyle(fontSize: 16, color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+
+                return Column(
+                  children: reportsController.reports.take(2).map((doc) {
+                    final data = doc.data();
+
+                    final date1 = data["createdAt"] != null
+                        ? DateFormat(
+                            "MMM d, yyyy • hh:mm a",
+                          ).format((data["createdAt"] as Timestamp).toDate())
+                        : "Unknown";
+
+                    return ReportCard(
+                      title: data["test_name"] ?? "Blood Test Report",
+                      centerName: "31".tr,
+                      date: date1,
+                      onTap: () {
+                        final analysis = AnalysisModel.fromJson(data);
+
+                        Get.to(
+                          () => ResultsScreen(),
+                          arguments: analysis,
+                          transition: Transition.zoom,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                    );
+                  }).toList(),
+                );
+              }),
             ],
           ),
         ],

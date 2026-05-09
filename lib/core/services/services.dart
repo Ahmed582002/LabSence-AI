@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:get/get.dart';
 import 'package:labsense_ai/firebase_options.dart';
@@ -15,5 +16,5 @@ class MyServices extends GetxService {
 initialServices() async {
   await Get.putAsync(() => MyServices().init());
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  Gemini.init(apiKey: "AIzaSyDs2_MslIn-OYiKaozSvNieR8BuHNyjuH4");
+  Gemini.init(apiKey: dotenv.env['GEMINI_API_KEY']!);
 }

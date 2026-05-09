@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:labsense_ai/controllers/home/scan_controller.dart';
 import 'package:labsense_ai/core/constants/color.dart';
 import 'package:labsense_ai/view/widgets/custom_button.dart';
-import 'package:labsense_ai/view/widgets/home/scan_card.dart';
+import 'package:labsense_ai/view/widgets/home/scan/scan_card.dart';
 
 class ScanPage extends StatelessWidget {
   final ScanController controller = Get.put(ScanController());
@@ -16,31 +16,71 @@ class ScanPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 5),
       child: ListView(
         children: [
-          const SizedBox(height: 20),
+          SizedBox(height: Get.height * 0.01),
+          Text(
+            "75".tr,
+            style: Theme.of(context).textTheme.displayLarge!.copyWith(
+              fontSize: 30,
+              color: AppColors.primary,
+            ),
+          ),
+          SizedBox(height: Get.height * 0.02),
+          Text(
+            "76".tr,
+            style: Theme.of(
+              context,
+            ).textTheme.displaySmall!.copyWith(fontSize: 16),
+          ),
+          SizedBox(height: Get.height * 0.04),
 
           /// IMAGE PREVIEW
           Obx(() {
             if (controller.selectedImage.value == null) {
-              return const Text("No image selected");
+              return Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.blue.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(7),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.image_outlined, color: AppColors.primary),
+                    SizedBox(width: Get.width * 0.02),
+                    Text(
+                      "32".tr,
+                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                        fontSize: 15,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ],
+                ),
+              );
             }
 
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.file(
-                controller.selectedImage.value!,
-                height: Get.height * 0.3,
-                width: double.infinity,
-                fit: BoxFit.contain,
+            return Container(
+              decoration: BoxDecoration(
+                border: Border.all(width: 3, color: AppColors.primary),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Card(
+                clipBehavior: Clip.antiAlias,
+                child: Image.file(
+                  controller.selectedImage.value!,
+                  height: Get.height * 0.3,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
               ),
             );
           }),
 
-          const SizedBox(height: 20),
+          SizedBox(height: Get.height * 0.04),
 
           /// UPLOAD CARD
           ScanCard(
-            title: "Upload Test",
-            subtitle: "Upload a lab report image for AI analysis.",
+            title: "33".tr,
+            subtitle: "34".tr,
             icon: Icons.upload_file,
             color: AppColors.primary,
             onTap: controller.pickImage,
@@ -48,20 +88,11 @@ class ScanPage extends StatelessWidget {
 
           /// CAMERA CARD
           ScanCard(
-            title: "Take Photo",
-            subtitle: "Capture a blood test report using your camera.",
+            title: "35".tr,
+            subtitle: "36".tr,
             icon: Icons.camera_alt,
-            color: const Color.fromARGB(255, 121, 70, 11),
-            onTap: controller.takePhoto,
-          ),
-
-          /// QR CARD
-          ScanCard(
-            title: "Scan QR Code",
-            subtitle: "Directly link results from participating laboratories.",
-            icon: Icons.qr_code_scanner,
             color: const Color(0xFF0B6E79),
-            onTap: () {},
+            onTap: controller.takePhoto,
           ),
 
           const SizedBox(height: 20),
@@ -76,80 +107,6 @@ class ScanPage extends StatelessWidget {
           ),
 
           const SizedBox(height: 20),
-
-          /// RESULT
-          //       Obx(() {
-          //         final data = controller.analysis.value;
-
-          //         if (data == null) {
-          //           return const Text("No analysis yet");
-          //         }
-
-          //         return Column(
-          //           crossAxisAlignment: CrossAxisAlignment.start,
-          //           children: [
-          //             /// HEALTH SCORE
-          //             Container(
-          //               padding: const EdgeInsets.all(20),
-          //               decoration: BoxDecoration(
-          //                 color: Colors.blue.withOpacity(0.1),
-          //                 borderRadius: BorderRadius.circular(12),
-          //               ),
-          //               child: Column(
-          //                 children: [
-          //                   const Text(
-          //                     "Health Score",
-          //                     style: TextStyle(fontSize: 18),
-          //                   ),
-          //                   Text(
-          //                     "${data.healthScore}",
-          //                     style: const TextStyle(
-          //                       fontSize: 40,
-          //                       fontWeight: FontWeight.bold,
-          //                     ),
-          //                   ),
-          //                 ],
-          //               ),
-          //             ),
-
-          //             const SizedBox(height: 15),
-
-          //             /// STATUS
-          //             Chip(
-          //               label: Text(data.status.toUpperCase()),
-          //               backgroundColor: controller.getStatusColor(data.status),
-          //             ),
-          //             TitleText(text: "summary".tr),
-          //             Text(data.totalInfo),
-
-          //             TitleText(text: "Biomarkers"),
-
-          //             const SizedBox(height: 15),
-
-          //             ...data.biomarkers.map((e) => BiomarkerCard(marker: e)),
-
-          //             const SizedBox(height: 15),
-
-          //             TitleText(text: "good_results".tr),
-          //             ...data.goodResults.map((e) => Text("• $e")),
-
-          //             const SizedBox(height: 15),
-
-          //             TitleText(text: "abnormal_results".tr),
-          //             ...data.abnormalResults.map((e) => Text("• $e")),
-
-          //             const SizedBox(height: 15),
-
-          //             TitleText(text: "Advice & Next Steps"),
-
-          //             const SizedBox(height: 15),
-
-          //             ...data.advices.map((e) => AdviceCard(advice: e)),
-          //           ],
-          //         );
-          //       }),
-
-          //       const SizedBox(height: 100),
         ],
       ),
     );

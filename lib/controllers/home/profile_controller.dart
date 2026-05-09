@@ -12,12 +12,7 @@ class ProfileController extends GetxController {
   }
 
   /// move to changeLang screen
-  void moveToChangeLang() {
-    Get.toNamed(AppRoute.changeLang);
-  }
-
-  /// move to changeLang screen
-  void moveToChangeMode() {
-    Get.toNamed(AppRoute.changeMode);
+  void moveToEditProfile() {
+    Get.toNamed(AppRoute.editProfile);
   }
 }

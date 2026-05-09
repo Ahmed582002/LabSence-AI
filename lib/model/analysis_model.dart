@@ -4,6 +4,7 @@ import 'biomarker_model.dart';
 
 class AnalysisModel {
   final int healthScore;
+  final String testName;
   final String status;
   final String totalInfo;
   final List<String> goodResults;
@@ -21,6 +22,7 @@ class AnalysisModel {
     required this.medicalAdvice,
     required this.biomarkers,
     required this.advices,
+    required this.testName,
   });
 
   factory AnalysisModel.fromJson(Map<String, dynamic> json) {
@@ -37,6 +39,7 @@ class AnalysisModel {
       advices: (json["advices"] as List? ?? [])
           .map((e) => AdviceModel.fromJson(e))
           .toList(),
+      testName: json["test_name"] ?? "",
     );
   }
 }
