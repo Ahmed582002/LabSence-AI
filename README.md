@@ -10,6 +10,14 @@ It also includes authentication, history tracking, profile management, and multi
 
 ---
 
+## 🎥 Live Demo
+
+Experience LabSense AI in action:
+
+🔗 [Watch the demo video](https://drive.google.com/file/d/1KnIZcuadXn9U_yn9NXeeaKZNlYEsJ6Jm/view?usp=drivesdk)
+
+---
+
 ## ✨ Features
 
 - 🧪 AI-powered blood test analysis
@@ -45,6 +53,15 @@ It also includes authentication, history tracking, profile management, and multi
 ### 🔐 Splash Screen
 <p align="center">
   <img src="assets/screenshots/splash.jpg" width="220"/>
+</p>
+
+---
+
+### 🔐 OnBoarding Screens
+<p align="center">
+  <img src="assets/screenshots/on_1.jpg" width="220"/>
+  <img src="assets/screenshots/on_2.jpg" width="220"/>
+  <img src="assets/screenshots/on_3.jpg" width="220"/>
 </p>
 
 ---
